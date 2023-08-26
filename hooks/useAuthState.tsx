@@ -29,5 +29,10 @@ export const useAuthState = () => {
     return () => {
       unsub();
     };
-  }, [user, isLoading]);
+  }, []);
+
+  return {
+    user,
+    isLoading,
+  };
 };

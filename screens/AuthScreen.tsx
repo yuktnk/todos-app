@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import tw from 'tailwind-rn';
-import { Text, View } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
 import { useFirabaseAuth } from '../hooks/useFirebaseAuth';
@@ -23,10 +23,10 @@ export const AuthScreen: FC = () => {
   } = useFirabaseAuth();
 
   return (
-    <View
-      style={(tw('flex-1 pt-16 items-center'), { backgroundColor: '#008b8b' })}
+    <SafeAreaView
+      style={[tw('flex-1 pt-16 items-center'), { backgroundColor: '#008b8b' }]}
     >
-      <FontAwesome name="tasks" size={50} color="whtie" />
+      <FontAwesome name="tasks" size={50} color="white" />
       <Text style={tw('text-2xl text-white font-semibold mt-2 mb-5')}>
         {isLogin ? 'Login' : 'SignUp'}
       </Text>
@@ -35,20 +35,20 @@ export const AuthScreen: FC = () => {
         placeholder="Enter email"
         keyboardType="email-address"
         textContentType="emailAddress"
-        autoFocus={true}
+        autoFocus
         value={email}
         onChangeText={(text: string) => setEmail(text)}
       />
       <InputField
         leftIcon="lock"
         placeholder="Enter password"
-        secureTextEntry={true}
+        secureTextEntry
         textContentType="password"
         value={password}
         onChangeText={(text: string) => setPassword(text)}
       />
       {authError !== '' && (
-        <Text style={tw('text-ywllow-300 my-3 font-semibold')}>
+        <Text style={tw('text-yellow-300 my-3 font-semibold')}>
           {authError}
         </Text>
       )}
@@ -60,6 +60,6 @@ export const AuthScreen: FC = () => {
         {isLogin ? 'Create new account ?' : 'Login ?'}
       </Text>
       <IconButton name="retweet" size={24} color="#fff" onPress={toggleMode} />
-    </View>
+    </SafeAreaView>
   );
 };

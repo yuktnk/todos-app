@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/types';
+import { useDispatch } from 'react-redux';
+
+import type { RootStackParamList } from '../types/types';
+import { setSelectedTag } from '../slices/todoSlice';
 import { useDeleteTag } from '../hooks/useDeleteTag';
 
 type Props = {
@@ -20,9 +23,16 @@ type Props = {
 const { width } = Dimensions.get('window'); // スクリーンの横幅が取れる？
 
 const TagCardMemo: FC<Props> = ({ id, name }) => {
+  const dispatch = useDispatch();
+
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { deleteTag, deleteError } = useDeleteTag();
+
+  const navToTaskStack = () => {
+    dispatch(setSelectedTag({ id, name }));
+    navigation.navigate('TaskStack');
+  };
 
   const deleteTagItem = async (id: string) => {
     Alert.alert('Deleting', 'Are you sure?', [
@@ -55,6 +65,7 @@ const TagCardMemo: FC<Props> = ({ id, name }) => {
           shadowRadius: 2,
         },
       ]}
+      onPress={navToTaskStack}
       onLongPress={() => deleteTagItem(id)}
     >
       <Text

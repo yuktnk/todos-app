@@ -11,6 +11,7 @@ import { TagListScreen } from '../screens/TagListScreen';
 import { CreateTagScreen } from '../screens/CreateTagScreen';
 import { IconButton } from '../components/IconButton';
 import { selectUser, logout } from '../slices/userSlice';
+import { TaskStackNavigator } from './TaskStackNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -50,6 +51,7 @@ export const TagStackNavigator: FC = () => {
         }}
       >
         <Stack.Screen name="TagList" component={TagListScreen} />
+        <Stack.Screen name="TaskStack" component={TaskStackNavigator} />
       </Stack.Group>
       <Stack.Group
         screenOptions={{
